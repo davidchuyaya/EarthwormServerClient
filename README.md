@@ -56,5 +56,24 @@ Sensor -> .sac -> Python client (TCP) -> Python server (TCP) -> Tracebuf -> .tnk
 3. Note that `client.py` will quit after sending all the .sac files specified in `saclist`. To make it run continuously, modify it so it can find the newly generated folders. Or, modify it so it isn't dependent on `saclist` but can still find newly generated `.sac` files in order.
 4. Connect to the internet, and type `client.py` into the terminal.
 
+# Plan 2
+## Overview
+Plan 1 involves the use of `sac2tb.exe` and `remux_tbuf.exe`. These 2 programs act upon written files, so we'll have to write and read from files unnecessarily on the server in order to convert from a .sac file into a .tnk file. Plan 2 aims to avoid this by rewriting both executables in Python and restructuring them so
+1. We convert from .sac to .tnk directly.
+2. We only need to write files once.
+
+This is still a work in progress. So far, we are able to convert from .sac to tracebuf files using `FileIO`. Further work will be necessary to convert from tracebuf files to .tnk files, although judging from the code in `remux_tbuf.c`, this should be simple.
+
+### Pros
+* Only Python files used; Ubuntu and Windows both inherently supported.
+* Should be faster since it requires less read/write. Also saves on disk space.
+
+### Cons
+* Python adds overhead (as opposed to C).
+* Larger memory required to process files.
+
+### Usage
+Since this is unfinished, there are no guidelines on usage yet. Documentation is present in `FileIO.py` for .sac file conversion methods. Client-server communication is nonexistant, but should be similar to that of Plan 1. The current implementation suggests having the client convert files, but if memory is limited, the server can do so as well.
+
 ##### Notes
 Created by David Chu 朱崇亞 as part of the NTU IoX summer program.
