@@ -1,7 +1,6 @@
 import os
 import socket
-
-from EarthwormServerClient.plan1 import const
+import const
 
 HOST = "localhost"
 SAC_FILE_DIR = "clientSAC"

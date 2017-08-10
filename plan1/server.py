@@ -2,8 +2,7 @@ import os
 import socket
 import subprocess
 import sys
-
-from EarthwormServerClient.plan1 import const
+import const
 
 SAC_DIR = "serverSAC"
 TANK_DIR = "serverTank"
@@ -64,6 +63,7 @@ while True:
 
         if sacFilesReceived == NUM_TBUF_COMPRESS:
             subprocess.Popen("remux_tbuf " + TBUF_PATH + " " + TANK_DIR + "/" + str(numTankFiles) + ".tnk")
+            open(TBUF_PATH, "w").close()    # Clear tbuf after creating tank file
             numTankFiles += 1
             sacFilesReceived = 0
     finally:
